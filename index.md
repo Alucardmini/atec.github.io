@@ -1,13 +1,9 @@
-## Welcome to GitHub Pages
+## From Word Embeddings To Document Distances
+依据组成词语计算文档相似度
 
-You can use the [editor on GitHub](https://github.com/Alucardmini/atec.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+### 简介
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+We present the Word Mover’s Distance (WMD), a novel distance function between text docu- ments. Our work is based on recent results in word embeddings that learn semantically mean- ingful representations for words from local co- occurrences in sentences. The WMD distance measures the dissimilarity between two text doc- uments as the minimum amount of distance that the embedded words of one document need to “travel” to reach the embedded words of another document. We show that this distance metric can be cast as an instance of the Earth Mover’s Dis- tance, a well studied transportation problem for which several highly efficient solvers have been developed. Our metric has no hyperparameters and is straight-forward to implement. Further, we demonstrate on eight real world document classi- fication data sets, in comparison with seven state- of-the-art baselines, that the WMD metric leads to unprecedented low k-nearest neighbor docu- ment classification error rates.
 ```markdown
 Syntax highlighted code block
 
