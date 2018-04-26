@@ -1,11 +1,14 @@
 ## From Word Embeddings To Document Distances
 根据词语成分计算文档相似度
 
-### 简介
+### 摘要
 
 We present the Word Mover’s Distance (WMD), a novel distance function between text documents. Our work is based on recent results in word embeddings that learn semantically meaningful representations for words from local cooccurrences in sentences. The WMD distance measures the dissimilarity between two text documents as the minimum amount of distance that the embedded words of one document need to “travel” to reach the embedded words of another document. We show that this distance metric can be cast as an instance of the Earth Mover’s Distance, a well studied transportation problem for which several highly efficient solvers have been developed. Our metric has no hyperparameters and is straight-forward to implement. Further, we demonstrate on eight real world document classi- fication data sets, in comparison with seven state- of-the-art baselines, that the WMD metric leads to unprecedented low k-nearest neighbor docu- ment classification error rates.
 本文提出一种WMD模型（基于EMD模型，一种翻译为搬土距离，所以WMD可以翻译成搬字距离，一定这么翻),一种计算文档的距离。本文的实验基于句子中共同出现有意义的单词的。WMD距离根据移动文档中词语最少的个数来衡量两个文档的差异（类似于最小编辑距离）。我们发现WMD可以作为EMD的一种映射，EMD是一种高效的解决移动问题的方法。我们的度量中没有超参数可以直接使用。最后，我们使用8种现实世界的分类数据和七个国家艺术基线对比？发现WMD达到了的KNN错误率前所未有的低。
 
+### 前言
+Accurately representing the distance between two documents has far-reaching applications in document retrieval (Salton & Buckley, 1988), news categorization and clustering (Ontrup & Ritter, 2001; Greene & Cunningham, 2006), song identification (Brochu & Freitas, 2002), and multilingual document matching (Quadrianto et al., 2009).
+实际上计算两个文档之间的距离在文档检索(Salton & Buckley, 1988)、新闻分类和聚类(Ontrup & Ritter, 2001; Greene & Cunningham, 2006)、音乐识别(Brochu & Freitas, 2002)和多语言文档匹配(Quadrianto et al., 2009)等领域有着广泛的应用，
 
 
 
