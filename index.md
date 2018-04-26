@@ -10,7 +10,8 @@ We present the Word Mover’s Distance (WMD), a novel distance function between 
 Accurately representing the distance between two documents has far-reaching applications in document retrieval (Salton & Buckley, 1988), news categorization and clustering (Ontrup & Ritter, 2001; Greene & Cunningham, 2006), song identification (Brochu & Freitas, 2002), and multilingual document matching (Quadrianto et al., 2009).
 实际上计算两个文档之间的距离在文档检索(Salton & Buckley, 1988)、新闻分类和聚类(Ontrup & Ritter, 2001; Greene & Cunningham, 2006)、音乐识别(Brochu & Freitas, 2002)和多语言文档匹配(Quadrianto et al., 2009)等领域有着广泛的应用，
 
-
+The two most common ways documents are represented is via a bag of words (BOW) or by their term frequency- inverse document frequency (TF-IDF). However, these features are often not suitable for document distances due to their frequent near-orthogonality (Scho ̈lkopf et al., 2002; Greene & Cunningham, 2006). Another significant drawback of these representations are that they do not capture the distance between individual words. Take for example the two sentences in different documents: Obama speaks to the media in Illinois and: The President greets the press in Chicago. While these sentences have no words in common, they convey nearly the same information, a fact that cannot be represented by the BOW model. In this case, the closeness of the word pairs: (Obama, President); (speaks, greets); (media, press); and (Illinois, Chicago) is not factored into the BOW-based distance.
+两个最常用于文本表示的模型:词袋(BOW)模型和词频-逆文档频率(TF-IDF)模型。然而，这些特征往往不适合表示文档距离因为生成的特征向量往往是正交的(Scho ̈lkopf et al., 2002; Greene & Cunningham, 2006). 另一个显著的缺点是这些特征无法表示单个词语之间的距离。举个例子在不同的文档中提取出两句话：1.“奥巴马在伊利诺斯州回答记者问题” 2.“总统在芝加哥接见媒体(访问)” 这两句话里没有相同的词语，却几乎表达了同样的意思。这种情况下无法用此袋模型来表示, 词袋模型考虑不到（总统、奥巴马)／(speak、greet) (伊利诺斯州、芝加哥)（记者、媒体）这些词对之间的距离。
 
 
 
