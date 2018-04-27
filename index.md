@@ -34,6 +34,7 @@ Cuturi (2013)介绍了EMD的一种熵，使得近似计算结果可以非常高�
 
 ### Word2Vec Embedding
 Word2Vec 词向量
+Recently Mikolov et al. (2013a;b) introduced word2vec, a novel word-embedding procedure. Their model learns a vector representation for each word using a (shallow) neu- ral network language model. Specifically, they propose a neural network architecture (the skip-gram model) that con- sists of an input layer, a projection layer, and an output layer to predict nearby words. Each word vector is trained to maximize the log probability of neighboring words in a corpus, i.e., given a sequence of words w1 , . . . , wT ,
 最近，Mikolov et al. (2013a;b)提出了word2vec，一种新的词向量计算过程。
 
 ### Jekyll Themes
