@@ -32,7 +32,9 @@ EMD算法已经用于计算机视觉领域(Rubner et al., 1998; Ren et al., 2011
 Cuturi (2013) introduces an entropy penalty to the EMD objective, which allows the resulting approximation to be solved with very efficient iterative matrix updates. Further, the vectorization enables parallel computation via GPGPUs However, their approach assumes that the number of di- mensions per document is not too high, which in our set- ting is extremely large (all possible words). This removes the main benefit (parallelization on GPGPUs) of their ap- proach and so we develop a new EMD approximation that appears to be very effective for our problem domain。
 Cuturi (2013)介绍了EMD的一种熵，使得近似计算结果可以非常高效的随着矩阵的更新而迭代。更重要的是这种功能向量计算可以使用多个GPU并行计算。然而这种计算方法假设每个文档的维度不会太高，否则会使得配置集合超级大（包含所有可能的单词）。这删除了主要的计算便利（GPU并行计算）。我们优化出新的EMD解决方法，从结果看可以很高效的解决以上问题。
 
-
+### Word2Vec Embedding
+Word2Vec 词向量
+最近，Mikolov et al. (2013a;b)提出了word2vec，一种新的词向量计算过程。
 
 ### Jekyll Themes
 
