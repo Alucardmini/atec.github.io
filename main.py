@@ -6,6 +6,9 @@ import gensim
 from collections import namedtuple
 import numpy as np
 from gensim.models import doc2vec
+import gensim.utils as gutils
+from gensim.models.doc2vec import LabeledSentence
+
 import math
 
 reload(sys)
@@ -46,25 +49,40 @@ def process(inpath, outpath):
     jieba.add_word("还钱")
     jieba.add_word("更改")
     jieba.add_word("哈罗单车")
-    texts = set()
+    # texts = set()
+    texts = []
     # 建立word2vec
     AnalyzedDocument = namedtuple('AnalyzedDocument', 'words tags')
+
+    model = gensim.models.doc2vec.Doc2Vec(size=50, min_count=2, iter=50, )
 
     with open(inpath, 'r+') as fin, open(outpath, 'w') as fout:
         for line_test in fin:
             sum_count += 1
             docs = []
-            word_set = set()
             line = line_test.encode('utf-8').decode('utf-8-sig')
             lineno, sen1, sen2, result = line.strip().split('\t')
+            # 分词去停用词
             words1 = [w for w in jieba.cut(sen1) if w.strip() and str(w.strip()) not in stoplist and w != u'\ufeff']
             words2 = [w for w in jieba.cut(sen2) if w.strip() and str(w.strip()) not in stoplist and w != u'\ufeff']
-            # model = Doc2Vec(words1, size=100, window=8, min_count=2, workers=2)
 
-            for word in words1:
-                word_set.add(word)
-            for word in words2:
-                word_set.add(word)
+            texts.append(words1)
+            texts.append(words2)
+
+            # 意义相同则合并成一个文档
+            if result == '1':
+                word_set = set()
+                for word in words1:
+                    word_set.add(word)
+                for word in words2:
+                    word_set.add(word)
+            else:
+                word_set1 = set()
+                word_set2 = set()
+                for word in words1:
+                    word_set1.add(word)
+                for word in words2:
+                    word_set2.add(word)
 
             docs.append(AnalyzedDocument(words1, [0]))
             docs.append(AnalyzedDocument(words2, [1]))
@@ -88,36 +106,23 @@ def process(inpath, outpath):
                 accury_count += 1
                 fout.write(lineno + '\t0\n')
 
-            # for word in words1:
-            #     if len(word) > 0 and word != u'\ufeff' and word.strip() not in stoplist:
-            #         texts.add(word)
-            # for word in words2:
-            #     if len(word) > 0 and word != u'\ufeff' and word.strip() not in stoplist:
-            #         texts.add(word)
+    from gensim import corpora
+    dictionary = corpora.Dictionary(texts)
+    corpus = [dictionary.doc2bow(text) for text in texts]
 
+    print corpus[0]
+    print corpus[1]
 
-    # model = gensim.models.Word2Vec(texts)
+    from gensim import models
+    tfidf = models.TfidfModel(corpus)
 
-    # dictionary = corpora.Dictionary(texts)
-    # dictionary.save('/tmp/deerwester.dict')
-    # with open(inpath, 'r') as fin, open(outpath, 'w') as fout:
-    #
-    #     for line in fin:
-    #         sum_count += 1
-    #         lineno, sen1, sen2, result = line.strip().split('\t')
-    #         words1= [ w for w in jieba.cut(sen1) if w.strip() ]
-    #         words2= [ w for w in jieba.cut(sen2) if w.strip() ]
-    #         union = words1 + words2
-    #         same_num = 0
-    #         for w in union:
-    #             if w in words1 and w in words2:
-    #                 same_num += 1
-    #         if same_num * 2 >= len(union) and result == '1':
-    #             accury_count += 1
-    #             fout.write(lineno + '\t1\n')
-    #         elif same_num * 2 <= len(union) and result == '0':
-    #             accury_count += 1
-    #             fout.write(lineno + '\t0\n')
+    tfidf1 = tfidf[corpus[0]]
+    tfidf2 =  tfidf[corpus[1]]
+
+    lsi_model = models.LsiModel(corpus, id2word=dictionary, num_topics=2)
+
+    # train_corpus = gensim.models.doc2vec.TaggedDocument(list(word_set) ,[1])
+    # model.train(train_corpus, total_examples=model.corpus_count, epochs=50)
 
     print float(accury_count)/sum_count
 
